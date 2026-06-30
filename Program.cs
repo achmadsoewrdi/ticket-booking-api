@@ -56,7 +56,6 @@ builder.Services.AddMassTransit(x =>
 
         cfg.ConfigureEndpoints(context);
     });
-
 });
 
 
