@@ -1,52 +1,44 @@
-@TikectingBookingApi_HostAddress = http://localhost:5098
+@HostAddress = https://ticket-booking-api-lgc6.onrender.com
 
-GET {{TikectingBookingApi_HostAddress}}/api/concerts
+### Dapatkan Semua Konser
+GET {{HostAddress}}/api/concerts
 Accept: application/json
 
-### Membuat Konser Baru
-POST http://localhost:5098/api/concerts
+### Bikin Konser 1: Coldplay
+POST {{HostAddress}}/api/concerts
 Content-Type: application/json
 
 {
-  "name": "The Panturas", 
+  "name": "Coldplay Live in Jakarta",
   "date": "2026-11-15T19:00:00Z",
-  "totalTickets": 10
+  "totalTickets": 50000
 }
 
-### Booking Tiket
-POST http://localhost:5098/api/bookings
+### Bikin Konser 2: Taylor Swift
+POST {{HostAddress}}/api/concerts
 Content-Type: application/json
 
 {
-  "concertId": "5a016cbb-09ac-4f74-b68e-6591c50507be",
-  "customerName": "Ardi"
+  "name": "Taylor Swift - Eras Tour SG",
+  "date": "2027-03-02T18:00:00Z",
+  "totalTickets": 60000
 }
 
-
-### -------------------------------------------------
-### TEST CASE FASE 4 (CRUD Lanjutan)
-### -------------------------------------------------
-
-### 1. Dapatkan 1 Konser Spesifik (GetConcertById)
-# (Ganti ID dengan ID Konser yang valid dari hasil GET /api/concerts)
-@concert_id = 20a0e653-6223-4250-be8b-dd3c7cf73b0f
-GET http://localhost:5098/api/concerts/{{concert_id}}
-Accept: application/json
-
-### 2. Update Konser (Ganti Nama / Total Tiket)
-PUT http://localhost:5098/api/concerts/{{concert_id}}
+### Bikin Konser 3: Sheila on 7
+POST {{HostAddress}}/api/concerts
 Content-Type: application/json
 
 {
-  "id": "{{concert_id}}",
-  "name": "Apa Kek Yang Penting Ada", 
-  "date": "2026-12-20T20:00:00Z",
-  "totalTickets": 50
+  "name": "Sheila on 7 - Tunggu Aku di Awan",
+  "date": "2026-12-01T15:00:00Z",
+  "totalTickets": 5000
 }
 
-### 3. Lihat Daftar Booking untuk Konser Tersebut
-GET http://localhost:5098/api/bookings?concertId={{concert_id}}
-Accept: application/json
+### Beli Tiket
+POST {{HostAddress}}/api/bookings
+Content-Type: application/json
 
-### 4. Hapus Konser (Akan gagal jika masih ada tiket ter-booking)
-DELETE http://localhost:5098/api/concerts/{{concert_id}}
+{
+  "concertId": "b193dc05-e1bf-4eb9-b5f4-ad0a02fe40b9",
+  "customerName": "Achmad Soewardi"
+}

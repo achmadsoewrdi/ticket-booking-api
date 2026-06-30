@@ -13,7 +13,11 @@ builder.Host.UseSerilog((context, config) =>
     config.WriteTo.Console().ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomSchemaIds(type => type.FullName?.Replace("+", "."));
+});
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
@@ -71,10 +75,8 @@ app.UseSerilogRequestLogging();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 CreateConcert.MapEndpoint(app);
 GetConcerts.MapEndpoint(app);
